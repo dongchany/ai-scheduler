@@ -24,3 +24,7 @@ hs_err_pid*
 
 # Idea cache directory
 .idea
+*.iml
+
+# Completed target directory
+target/
