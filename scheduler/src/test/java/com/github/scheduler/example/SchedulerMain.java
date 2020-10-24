@@ -43,7 +43,7 @@ public class SchedulerMain {
 
         final Scheduler scheduler = Scheduler
                 .create(dataSource)
-                .startTasks(recurring1,recurring2)
+                .startTasks(recurring1)
                 .build();
 
         scheduler.start();

@@ -28,11 +28,19 @@ public class ScheduleRecurringOnStartup<T> implements ScheduleOnStartup<T>{
 
     @Override
     public void apply(Scheduler scheduler, Clock clock, Task<T> task) {
-        final TaskInstance<T> instanceWithoutData = task.instance(this.instance);
+        final TaskInstance<T> instanceWithoutData = task.createInstance(this.instance);
 
         // No preexisting execution, create initial one
         final Instant initialExecutionTime = schedule.getInitialExecutionTime(clock.now());
         log.info("Creating initial execution for task-instance '{}'. Next execution-time: {}", instanceWithoutData, initialExecutionTime);
         scheduler.schedule(getSchedulableInstance(task), initialExecutionTime);
+    }
+
+    private TaskInstance<T> getSchedulableInstance(Task<T> task){
+        if (data == null){
+            return task.createInstance(instance);
+        }else {
+            return task.createInstance(instance, data);
+        }
     }
 }

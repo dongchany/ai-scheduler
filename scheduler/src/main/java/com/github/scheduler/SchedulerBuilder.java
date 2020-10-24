@@ -27,6 +27,7 @@ import static java.util.Optional.ofNullable;
  */
 @Slf4j
 public class SchedulerBuilder {
+    private static final int POLLING_CONCURRENCY_MULTIPLIER = 3;
 
     public static final Duration DEFAULT_POLLING_INTERVAL = Duration.ofSeconds(10);
     public static final Duration DEFAULT_HEARTBEAT_INTERVAL = Duration.ofMinutes(5);
@@ -36,7 +37,6 @@ public class SchedulerBuilder {
 
     protected final List<OnStartup> startTasks = new ArrayList<>();
     protected final DataSource dataSource;
-    protected final List<Task<?>> knowTasks = new ArrayList<>();
     protected SchedulerName schedulerName;
     protected int pollingLimit;
     protected int executorThreads = 10;
@@ -54,7 +54,8 @@ public class SchedulerBuilder {
 
     public SchedulerBuilder(DataSource dataSource, List<Task<?>> knowTasks) {
         this.dataSource = dataSource;
-        this.knowTasks.addAll(knowTasks);
+        this.knownTasks.addAll(knowTasks);
+        this.pollingLimit = calculatePollingLimit();
     }
 
     @SafeVarargs
@@ -63,9 +64,13 @@ public class SchedulerBuilder {
     }
 
     public <T extends Task<?> & OnStartup> SchedulerBuilder startTasks(List<T> startTasks) {
-        knowTasks.addAll(startTasks);
+        knownTasks.addAll(startTasks);
         this.startTasks.addAll(startTasks);
         return this;
+    }
+
+    private int calculatePollingLimit(){
+        return executorThreads * POLLING_CONCURRENCY_MULTIPLIER;
     }
 
     /**

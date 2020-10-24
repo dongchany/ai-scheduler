@@ -1,6 +1,7 @@
 package com.github.scheduler;
 
 import com.github.scheduler.dao.TaskRepository;
+import com.github.scheduler.task.Execution;
 import com.github.scheduler.task.TaskInstance;
 
 import java.time.Instant;
@@ -30,6 +31,13 @@ public interface SchedulerClient {
 
         @Override
         public <T> void schedule(TaskInstance<T> taskInstance, Instant executionTime) {
+            boolean success = taskRepository.createIfNotExists(new Execution(executionTime, taskInstance));
+            if (success) {
+                notifyListeners();
+            }
+        }
+
+        private void notifyListeners(){
 
         }
     }

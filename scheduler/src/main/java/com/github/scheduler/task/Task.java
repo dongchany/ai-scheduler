@@ -21,8 +21,12 @@ public abstract class Task<T>  {
         this.deadExecutionHandler = deadExecutionHandler;
     }
 
-    public TaskInstance<T> instance(String id) {
+    public TaskInstance<T> createInstance(String id) {
         return new TaskInstance<>(this.name, id);
+    }
+
+    public TaskInstance<T> createInstance(String id, T data){
+        return new TaskInstance<>(this.name, id, data);
     }
 
     public abstract CompletionHandler<T> execute(TaskInstance<T> taskInstance, ExecutionContext executionContext);

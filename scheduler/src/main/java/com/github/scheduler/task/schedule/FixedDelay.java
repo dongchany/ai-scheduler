@@ -1,6 +1,9 @@
 package com.github.scheduler.task.schedule;
 
+import com.github.scheduler.task.ExecutionComplete;
+
 import java.time.Duration;
+import java.time.Instant;
 import java.util.Objects;
 
 /**
@@ -16,5 +19,15 @@ public class FixedDelay implements Schedule {
 
     public static FixedDelay of(Duration duration){
         return new FixedDelay(duration);
+    }
+
+    @Override
+    public Instant getNextExecutionTime(ExecutionComplete executionComplete) {
+        return null;
+    }
+
+    @Override
+    public Instant getInitialExecutionTime(Instant now) {
+        return now;
     }
 }
