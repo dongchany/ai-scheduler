@@ -1,10 +1,9 @@
 package com.github.example.config;
 
 import com.github.example.CounterService;
-import com.github.scheduler.Scheduler;
-import com.github.scheduler.task.Task;
-import com.github.scheduler.task.helper.RecurringTask;
-import com.github.scheduler.task.helper.Tasks;
+import com.github.dongchan.scheduler.task.Task;
+import com.github.dongchan.scheduler.task.helper.RecurringTask;
+import com.github.dongchan.scheduler.task.helper.Tasks;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 import java.time.Duration;
 
-import static com.github.scheduler.task.schedule.Schedules.fixedDelay;
+import static com.github.dongchan.scheduler.task.schedule.Schedules.fixedDelay;
 
 /**
  * @author DongChan

@@ -1,7 +1,7 @@
 package com.github.example;
 
-import com.github.scheduler.task.Task;
-import com.github.scheduler.task.helper.RecurringTask;
+import com.github.dongchan.scheduler.task.Task;
+import com.github.dongchan.scheduler.task.helper.RecurringTask;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
