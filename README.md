@@ -1,4 +1,4 @@
-# EASE SCHEDULER
+# AI-SCHEDULER
 Task-scheduler for Java that was inspired by the need for a clustered java.util.concurrent.ScheduledExecutorService simple that 
 Xxl-job.
 
