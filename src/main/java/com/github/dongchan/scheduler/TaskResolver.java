@@ -3,7 +3,8 @@ package com.github.dongchan.scheduler;
 import com.github.dongchan.scheduler.stats.StatsRegistry;
 import com.github.dongchan.scheduler.task.Task;
 import com.github.dongchan.scheduler.task.schedule.SystemClock;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.*;
@@ -17,13 +18,14 @@ import static java.util.function.Function.identity;
  * @date 2020/10/23
  * @time 2:10 PM
  */
-@Slf4j
 public class TaskResolver {
+    private static final Logger log = LoggerFactory.getLogger(TaskResolver.class);
 
     private final StatsRegistry statsRegistry;
     private final Clock clock;
     private final Map<String, Task> taskMap;
     private final Map<String, UnresolvedTask> unresolvedTasks = new ConcurrentHashMap<>();
+
     public TaskResolver(StatsRegistry statsRegistry, Task<?>... knownTasks) {
         this(statsRegistry, Arrays.asList(knownTasks));
     }
@@ -37,6 +39,7 @@ public class TaskResolver {
         this.clock = clock;
         this.taskMap = knownTasks.stream().collect(Collectors.toMap(Task::getName, identity()));
     }
+
     public Optional<Task> resolve(String taskName) {
         Task task = taskMap.get(taskName);
         if (task == null) {
@@ -51,10 +54,11 @@ public class TaskResolver {
         unresolvedTasks.putIfAbsent(taskName, new UnresolvedTask(taskName));
     }
 
-    public List<UnresolvedTask> getUnresolved(){
+    public List<UnresolvedTask> getUnresolved() {
         return new ArrayList<>(unresolvedTasks.values());
     }
-    public class UnresolvedTask{
+
+    public class UnresolvedTask {
         private final String taskName;
         private final Instant firstUnresolved;
 

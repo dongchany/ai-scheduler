@@ -5,7 +5,8 @@ import com.github.dongchan.scheduler.task.helper.RecurringTask;
 import com.github.dongchan.scheduler.task.helper.Tasks;
 import com.github.dongchan.scheduler.task.schedule.FixedDelay;
 import com.mysql.cj.jdbc.MysqlDataSource;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
@@ -19,8 +20,8 @@ import java.util.Properties;
  * @date 2020/10/23
  * @time 11:12 AM
  */
-@Slf4j
 public class SchedulerMain {
+    private static final Logger log = LoggerFactory.getLogger(SchedulerMain.class);
 
     private static void example(DataSource dataSource){
         //Recurring with no data

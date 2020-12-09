@@ -1,6 +1,5 @@
 package com.github.dongchan.scheduler;
 
-import lombok.Setter;
 
 /**
  * @author DongChan
@@ -13,19 +12,27 @@ public interface SchedulerState {
 
     boolean isStarted();
 
-    @Setter
-    class SettableSchedulerState implements SchedulerState{
+    class SettableSchedulerState implements SchedulerState {
 
         private boolean isShuttingDown;
         private boolean isStarted;
+
         @Override
         public boolean isShuttingDown() {
             return isShuttingDown;
         }
 
+        public void setShuttingDown(boolean shuttingDown) {
+            isShuttingDown = shuttingDown;
+        }
+
         @Override
         public boolean isStarted() {
             return isStarted;
+        }
+
+        public void setStarted(boolean started) {
+            isStarted = started;
         }
     }
 }

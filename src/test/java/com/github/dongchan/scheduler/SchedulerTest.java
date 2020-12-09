@@ -6,7 +6,6 @@ import com.github.dongchan.scheduler.task.helper.OneTimeTask;
 import com.github.dongchan.scheduler.testhelper.SettableClock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.shaded.com.google.common.util.concurrent.MoreExecutors;
 
 
 import java.util.Optional;
@@ -29,9 +28,6 @@ public class SchedulerTest {
         handler = new TestTasks.CountingHandler<>();
     }
 
-    private Scheduler schedulerFor(Task<?>... tasks){
-        return schedulerFor(MoreExecutors.newDirectExecutorService(), tasks);
-    }
 
     private Scheduler schedulerFor(ExecutorService executor, Task<?>... tasks){
         final StatsRegistry statsRegistry = StatsRegistry.NOOP;

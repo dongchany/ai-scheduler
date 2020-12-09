@@ -1,6 +1,5 @@
 package com.github.dongchan.scheduler;
 
-import lombok.Getter;
 
 import java.time.Duration;
 
@@ -9,12 +8,11 @@ import java.time.Duration;
  * @date 2020/10/23
  * @time 3:35 PM
  */
-@Getter
 public class Waiter {
 
     private final Duration duration;
-    private Clock clock;
     private final Object lock;
+    private Clock clock;
 
     public Waiter(Duration duration, Clock clock) {
         this(duration, clock, new Object());
@@ -26,7 +24,19 @@ public class Waiter {
         this.lock = lock;
     }
 
-    public void doWait() throws InterruptedException{
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public Clock getClock() {
+        return clock;
+    }
+
+    public Object getLock() {
+        return lock;
+    }
+
+    public void doWait() throws InterruptedException {
     }
 
 }

@@ -4,7 +4,8 @@ import com.github.dongchan.scheduler.concurrent.LoggingRunnable;
 import com.github.dongchan.scheduler.dao.TaskRepository;
 import com.github.dongchan.scheduler.stats.StatsRegistry;
 import com.github.dongchan.scheduler.task.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.time.Duration;
@@ -20,8 +21,8 @@ import java.util.concurrent.Executors;
  * @date 2020/10/22
  * @time 11:12 PM
  */
-@Slf4j
 public class Scheduler implements SchedulerClient{
+    private final static Logger log = LoggerFactory.getLogger(Scheduler.class);
 
     public static final String THREAD_PREFIX = "tick-scheduler";
     protected final List<OnStartup> onStartup;

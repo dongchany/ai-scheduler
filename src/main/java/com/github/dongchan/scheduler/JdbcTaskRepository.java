@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
-import java.util.Optional;
+import java.time.Instant;
+import java.util.List;
 
 /**
  * @author Dongchan Year
@@ -32,9 +33,7 @@ public class JdbcTaskRepository implements TaskRepository {
 
     @Override
     public boolean createIfNotExists(Execution execution) {
-
         try {
-
             jdbcRunner.execute("insert into " + tableName + "(task_name, task_instance, task_data, execution_time, picked, version) values(?, ?, ?, ?, ?, ?)",
                     (PreparedStatement p) -> {
                         p.setString(1, execution.taskInstance.getTaskName());
@@ -50,6 +49,21 @@ public class JdbcTaskRepository implements TaskRepository {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<Execution> getDue(Instant now, int limit) {
+        return null;
+    }
+
+    @Override
+    public int remove(Execution execution) {
+        final int removed = jdbcRunner.execute("delete from "+tableName +" where task_name = ? and task_instance = ? and version = ?",
+                ps -> {
+
+                });
+
+        return removed;
     }
 
 }

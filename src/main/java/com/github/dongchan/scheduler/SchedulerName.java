@@ -1,6 +1,8 @@
 package com.github.dongchan.scheduler;
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -13,8 +15,8 @@ import java.net.UnknownHostException;
 public interface SchedulerName {
     String getName();
 
-    @Slf4j
-    class Hostname implements SchedulerName{
+    class Hostname implements SchedulerName {
+        private static final Logger log = LoggerFactory.getLogger(Hostname.class);
         private String cacheHostname;
 
         public Hostname() {
@@ -23,8 +25,8 @@ public interface SchedulerName {
                 log.debug("Resolving hostname...");
                 cacheHostname = InetAddress.getLocalHost().getHostName();
                 long duration = System.currentTimeMillis() - start;
-                if (duration > 1000){
-                    log.warn("Hostname-lookup took {}ms",duration);
+                if (duration > 1000) {
+                    log.warn("Hostname-lookup took {}ms", duration);
                 }
             } catch (UnknownHostException e) {
                 log.warn("Failed to resolve hostname. Using dummy-name for scheduler.");

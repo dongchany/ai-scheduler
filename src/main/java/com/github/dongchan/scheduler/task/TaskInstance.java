@@ -1,7 +1,5 @@
 package com.github.dongchan.scheduler.task;
 
-import lombok.Getter;
-
 import java.util.function.Supplier;
 
 /**
@@ -9,12 +7,10 @@ import java.util.function.Supplier;
  * @date 2020/10/22
  * @time 5:02 PM
  */
-@Getter
 public final class TaskInstance<T> {
     private final String taskName;
     private final String id;
     private final Supplier<T> dataSupplier;
-
 
     public TaskInstance(String taskName, String id) {
         this(taskName, id, (T) null);
@@ -30,14 +26,23 @@ public final class TaskInstance<T> {
         this.dataSupplier = dataSupplier;
     }
 
+    public String getTaskName() {
+        return taskName;
+    }
 
+    public String getId() {
+        return id;
+    }
 
+    public Supplier<T> getDataSupplier() {
+        return dataSupplier;
+    }
 
-    public String getTaskAndInstance(){
+    public String getTaskAndInstance() {
         return taskName + "_" + id;
     }
 
-    public T getData(){
+    public T getData() {
         return dataSupplier.get();
     }
 }

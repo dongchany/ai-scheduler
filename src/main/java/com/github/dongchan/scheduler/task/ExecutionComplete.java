@@ -1,7 +1,5 @@
 package com.github.dongchan.scheduler.task;
 
-import lombok.Getter;
-
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Optional;
@@ -11,7 +9,6 @@ import java.util.Optional;
  * @date 2020/10/22
  * @time 11:40 PM
  */
-@Getter
 public class ExecutionComplete {
     private final Execution execution;
     private final Instant timeStarted;
@@ -19,22 +16,16 @@ public class ExecutionComplete {
     private final Result result;
     private final Throwable cause;
 
-    ExecutionComplete(Execution execution, Instant timeStarted, Instant timeDone, Result result, Throwable cause){
+    ExecutionComplete(Execution execution, Instant timeStarted, Instant timeDone, Result result, Throwable cause) {
         this.timeStarted = timeStarted;
         this.cause = cause;
-        if (result == Result.OK && cause != null){
+        if (result == Result.OK && cause != null) {
             throw new IllegalArgumentException("Result 'OK' should never have a cause.");
         }
         this.execution = execution;
         this.timeDone = timeDone;
         this.result = result;
     }
-
-    public enum Result{
-        OK,
-        FAILED
-    }
-
 
     /**
      * Simulated ExecutionComplete used to generate first execution-time from a Schedule.
@@ -45,8 +36,29 @@ public class ExecutionComplete {
         return new ExecutionComplete(nonExistingExecution, timeDone.minus(Duration.ofSeconds(1)), timeDone, Result.OK, null);
     }
 
+    public Execution getExecution() {
+        return execution;
+    }
 
-    public Optional<Throwable> getCause(){
+    public Instant getTimeStarted() {
+        return timeStarted;
+    }
+
+    public Instant getTimeDone() {
+        return timeDone;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public Optional<Throwable> getCause() {
         return Optional.ofNullable(cause);
+    }
+
+
+    public enum Result {
+        OK,
+        FAILED
     }
 }
